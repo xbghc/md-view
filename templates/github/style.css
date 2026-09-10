@@ -1,0 +1,22 @@
+/* Upstream CSS is stored locally and embedded by Pandoc. */
+@import url("github-markdown.css");
+
+:root { color-scheme: light dark; }
+body { margin: 0; background: #fff; }
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+}
+@media (max-width: 767px) {
+  .markdown-body { padding: 15px; }
+}
+@media (prefers-color-scheme: dark) {
+  body { background: #0d1117; }
+}
+
+/* Pandoc wraps highlighted code in a div rather than GitHub's markup. */
+.markdown-body div.sourceCode { margin: 0 0 16px; }
+.markdown-body div.sourceCode pre { margin: 0; }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>$pagetitle$</title>
+$for(css)$
+  <link rel="stylesheet" href="$css$">
+$endfor$
+$if(highlighting-css)$
+  <style>
+$highlighting-css$
+  </style>
+$endif$
+</head>
+<body>
+  <main class="markdown-body">
+$body$
+  </main>
+</body>
+</html>
