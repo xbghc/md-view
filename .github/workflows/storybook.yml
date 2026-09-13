@@ -1,0 +1,63 @@
+# Builds the template Storybook and publishes it to GitHub Pages.
+#
+# The build shells out to pandoc, so the runner needs it installed; everything
+# else comes from package-lock.json. Storybook emits relative asset paths, so
+# the output works unchanged under the project page's /md-view/ prefix.
+
+name: Deploy Storybook
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never cancel a running deployment; queue at most one more behind it.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install pandoc
+        run: |
+          if ! command -v pandoc >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y pandoc
+          fi
+          pandoc --version | head -1
+
+      - run: npm ci
+
+      - run: npm run build-storybook
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: storybook-static
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
