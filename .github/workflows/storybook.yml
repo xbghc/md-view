@@ -2,7 +2,12 @@
 #
 # The build shells out to pandoc, so the runner needs it installed; everything
 # else comes from package-lock.json. Storybook emits relative asset paths, so
-# the output works unchanged under the project page's /md-view/ prefix.
+# the output works unchanged under the project page's /md-view/ prefix and
+# needs no base-path configuration.
+#
+# Pages must be switched on for the repository first, with the source set to
+# GitHub Actions under Settings - Pages; the workflow token is not allowed to
+# turn it on by itself.
 
 name: Deploy Storybook
 
@@ -25,13 +30,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: npm
