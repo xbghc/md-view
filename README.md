@@ -30,7 +30,7 @@ npm run storybook        # 开发服务器，默认 6006 端口
 npm run build-storybook  # 输出静态站点到 storybook-static/
 ```
 
-推送到 `master` 分支后，GitHub Actions 会自动构建并部署到 GitHub Pages，可以在 <https://xbghc.github.io/md-view/> 查看最新的模板预览。
+推送到 `master` 分支后，GitHub Actions 会自动构建并部署到 GitHub Pages，可以在 <https://xbghc.github.io/md-view/> 查看最新的模板预览。首次使用前需要在仓库的 Settings → Pages 中把来源（Source）设为 GitHub Actions，工作流本身没有权限打开这个开关。
 
 预览由本机的 pandoc 生成，渲染参数与 `md-open.py` 相同，因此运行前需要先安装 pandoc。样式表不交给 pandoc 内联，而是由故事注入到文档中，这样切换配色不必重新转换；修改 `style.css` 时也不会重新调用 pandoc。
 
