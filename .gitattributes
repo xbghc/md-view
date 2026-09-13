@@ -4,4 +4,6 @@
 *.css text eol=lf
 *.html text eol=lf
 *.cjs text eol=lf
+*.js text eol=lf
+*.mdx text eol=lf
 *.json text eol=lf

@@ -2,9 +2,14 @@
   "name": "md-template-preview",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "Preview Markdown with local HTML/CSS templates in WSL",
   "bin": {
     "md": "bin/md.cjs"
+  },
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "files": [
     "bin/",
@@ -14,5 +19,11 @@
   ],
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/html-vite": "^10.6.0",
+    "storybook": "^10.6.0",
+    "vite": "^7.3.6"
   }
 }

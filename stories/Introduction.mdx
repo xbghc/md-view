@@ -1,0 +1,21 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="说明/介绍" />
+
+# md-view 模板预览
+
+这套 Storybook 用来开发 `templates/` 下的 HTML/CSS 模板。侧边栏按模板分组，每一项是一份聚焦某类元素的 Markdown 样例。
+
+每个故事显示的都是 Pandoc 真实生成的完整 HTML 文档，渲染参数与 `md-open.py` 一致，只是样式表没有交给 Pandoc 内联，而是由故事注入，这样切换配色和打印样式不需要重新转换。文档放在 iframe 中显示，模板对 `body` 的全局样式因此不会影响 Storybook 自身的界面。
+
+## 工具栏
+
+顶部的**配色**用于强制浅色或深色，而不必修改系统设置；实现方式是把样式表里的 `@media (prefers-color-scheme: dark)` 改写为恒真或恒假的条件。**介质**切换到打印时，`@media print` 中的规则会同时生效，可以在不打开打印预览的情况下检查打印样式。右侧控制面板中的**宽度**用于收窄预览容器，检查响应式断点，例如 GitHub 模板在 767px 以下会把内边距从 45px 改为 15px。
+
+## 添加内容
+
+新增模板时，在 `templates/` 下建立目录并放入 `template.html` 与 `style.css`，然后复制 `stories/Github.stories.js` 并修改模板名称。新增样例时，在 `stories/samples/` 下添加 `.md` 文件，再到两个故事文件中各加一行 `export`。样例也会从 `examples/` 目录读取。
+
+## 依赖
+
+预览由本机的 pandoc 生成，因此运行 Storybook 前需要先安装 pandoc；缺少时开发服务器会直接报错并给出安装命令。修改模板或样例后，开发服务器会重新生成受影响的预览；只改 CSS 时不会重新调用 pandoc。
